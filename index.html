@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Личный сайт о том, как я провела лето!">
+    <title>Как я провела лето — Мой летний дневник</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!-- Собственные стили -->
+    <style>
+        :root {
+            --sun: #ffb347;
+            --sun-dark: #ff8c00;
+            --sea: #0d6efd;
+            --sea-dark: #0a58ca;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+        }
+
+        /* Навигация */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--sun-dark) !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--sun-dark) !important;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #ffb347 0%, #ffcc33 50%, #ff8c00 100%);
+            color: #2c3e50;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .hero .lead {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+        }
+
+        .hero-photo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            border: 5px solid #fff;
+            transform: rotate(-2deg);
+            transition: transform 0.4s ease;
+        }
+
+        .hero-photo:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        /* Секции */
+        .section-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--sun-dark);
+            border-radius: 2px;
+            margin-top: 10px;
+        }
+
+        .section-title.center::after {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Карточки впечатлений */
+        .impression-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .impression-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .impression-icon {
+            font-size: 3rem;
+            color: var(--sun-dark);
+            margin-bottom: 1rem;
+        }
+
+        /* Таймлайн */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--sun), var(--sea));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border: 4px solid var(--sun-dark);
+            border-radius: 50%;
+            z-index: 2;
+            top: 20px;
+        }
+
+        .timeline-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (max-width: 767.98px) {
+            .timeline::before {
+                left: 20px;
+            }
+            .timeline-item::before {
+                left: 20px;
+            }
+            .timeline-content {
+                margin-left: 50px;
+            }
+        }
+
+        /* Галерея */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(135deg, #ffb347, #ff8c00);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        /* Форма */
+        .contact-form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-sun {
+            background: var(--sun-dark);
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            padding: 10px 30px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-sun:hover {
+            background: #e67e00;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 140, 0, 0.4);
+        }
+
+        /* Подвал */
+        footer {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 40px 0 20px;
+        }
+
+        footer a {
+            color: var(--sun);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Кнопка вверх */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--sun-dark);
+            color: #fff;
+            border: none;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background: #e67e00;
+            transform: translateY(-3px);
+        }
+
+        .back-to-top.show {
+            display: flex;
+        }
+
+        .gallery-link {
+    display: block;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.gallery-link:hover .gallery-img {
+    transform: scale(1.1);
+}
+
+@media (max-width: 576px) {
+    .gallery-img {
+        height: 150px;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- НАВИГАЦИЯ -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="bi bi-sun-fill"></i> Моё лето
+            </a>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">О лете</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#impressions">Впечатления</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#timeline">Хроника</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Галерея</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <h1 class="mb-4">Как я провела лето</h1>
+                    <p class="lead mb-4">
+                        Три месяца учебы, отдыха и незабываемых встреч.
+                        Это лето не стало особенным, но всё же мне есть чем поделиться!                   каждым его мгновением.
+                    </p>
+                    <a href="#about" class="btn btn-sun btn-lg me-2">
+                        <i class="bi bi-arrow-down-circle"></i> Читать дальше
+                    </a>
+                    <a href="#gallery" class="btn btn-outline-dark btn-lg">
+                        <i class="bi bi-images"></i> Галерея
+                    </a>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="купалье2.jpg" alt="Моё летнее фото"
+                         class="hero-photo img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О ЛЕТЕ -->
+    <section class="py-5" id="about">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title center">О моём лете</h2>
+                    <p class="mt-4 fs-5">
+                        Это лето началось с летней сессии, продолжилось
+                        практикой и закончилось тёплыми вечерами
+                        с самыми близкими людьми. Я очень мало фотографировала,
+                        поэтому представляю то, что есть.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ВПЕЧАТЛЕНИЯ -->
+    <section class="py-5 bg-white" id="impressions">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title center">Главные впечатления</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="impression-card p-4 text-center">
+                        <div class="impression-icon"><i class="bi bi-water"></i></div>
+                        <h5>Припять</h5>
+                        <p class="text-muted mb-0">
+                            Этим летом я часто была на берегу Припяти, где прошло детсво и молодость моей бабушки.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="impression-card p-4 text-center">
+                        <div class="impression-icon"><i class="bi bi-tree-fill"></i></div>
+                        <h5>Природа</h5>
+                        <p class="text-muted mb-0">
+                            Время, проведенное на природе, в лесу дарило потрясающее спокойствие.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="impression-card p-4 text-center">
+                        <div class="impression-icon"><i class="bi bi-people-fill"></i></div>
+                        <h5>Семья</h5>
+                        <p class="text-muted mb-0">
+                            Вечера за большим столом, настольные игры и разговоры
+                            до утра — бесценны.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="impression-card p-4 text-center">
+                        <div class="impression-icon"><i class="bi bi-book-fill"></i></div>
+                        <h5>Учеба</h5>
+                        <p class="text-muted mb-0">
+                            Фактически половина лета была посвящена учебе.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ТАЙМЛАЙН -->
+    <section class="py-5" id="timeline">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title center">Хроника лета</h2>
+            </div>
+            <div class="timeline">
+                <div class="row timeline-item">
+                    <div class="col-md-5 offset-md-1 text-md-end">
+                        <div class="timeline-content">
+                            <h5><i class="bi bi-calendar-event text-warning"></i> Июнь</h5>
+                            <p class="mb-0 text-muted">
+                                Успешная сдача сессии, прогулки по Минску и самое ценное - 
+                                я наконец-то получила водительские права!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row timeline-item">
+                    <div class="col-md-5 offset-md-6">
+                        <div class="timeline-content">
+                            <h5><i class="bi bi-calendar-event text-warning"></i> Июль</h5>
+                            <p class="mb-0 text-muted">
+                                Прохождение практики, поездки с семьей
+                                и бесконечные ппрогулки.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row timeline-item">
+                    <div class="col-md-5 offset-md-1 text-md-end">
+                        <div class="timeline-content">
+                            <h5><i class="bi bi-calendar-event text-warning"></i> Август</h5>
+                            <p class="mb-0 text-muted">
+                                Спокойные дни дома, чтение книг,
+                                частые встречи с сестрой в Калинковичах и Петрикове.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- ГАЛЕРЕЯ -->
+<section class="py-5 bg-white" id="gallery">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title center">Галерея лета</h2>
+        </div>
+        <div class="row g-3">
+            <div class="col-6 col-md-3">
+                <a href="купалье.jpg" target="_blank" class="gallery-link">
+                    <img src="купалье.jpg" alt="Летнее фото 1" class="gallery-img">
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="девчонки.jpg" target="_blank" class="gallery-link">
+                    <img src="девчонки.jpg" alt="Летнее фото 2" class="gallery-img">
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="небо.jpg" target="_blank" class="gallery-link">
+                    <img src="небо.jpg" alt="Летнее фото 3" class="gallery-img">
+                </a>
+            </div>
+             <div class="col-6 col-md-3">
+                <a href="жиличи.jpg" target="_blank" class="gallery-link">
+                    <img src="жиличи.jpg" alt="Летнее фото 8" class="gallery-img">
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="васильки.jpg" target="_blank" class="gallery-link">
+                    <img src="васильки.jpg" alt="Летнее фото 5" class="gallery-img">
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="зовполесья.jpg" target="_blank" class="gallery-link">
+                    <img src="зовполесья.jpg" alt="Летнее фото 6" class="gallery-img">
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="скатюшей.jpg" target="_blank" class="gallery-link">
+                    <img src="скатюшей.jpg" alt="Летнее фото 7" class="gallery-img">
+                </a>
+            </div>
+           <div class="col-6 col-md-3">
+                <a href="костер.jpg" target="_blank" class="gallery-link">
+                    <img src="костер.jpg" alt="Летнее фото 4" class="gallery-img">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- ПОДВАЛ -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h5><i class="bi bi-sun-fill"></i> Моё лето</h5>
+                    <p class="mb-0">
+                        Личный дневник о самом тёплом времени года.
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h5>Связаться со мной</h5>
+                    <a href="https://t.me/victoriaageyavich" class="social-icon"><i class="bi bi-telegram"></i></a>
+                    <a href="https://www.instagram.com/victoriaageyavich?stkn=bG9rNjkxOXkzMm12&utm_source=qr" class="social-icon"><i class="bi bi-instagram"></i></a>
+                    <a href="https://github.com/VictoriaAheyavic" class="social-icon"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.2);">
+            <p class="text-center mb-0 small">
+                © 2025 Мой летний дневник ❤️ 
+            </p>
+        </div>
+    </footer>
+
+    <!-- Кнопка вверх -->
+    <button class="back-to-top" id="backToTop" title="Наверх">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <!-- Скрипт кнопки вверх -->
+    <script>
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
